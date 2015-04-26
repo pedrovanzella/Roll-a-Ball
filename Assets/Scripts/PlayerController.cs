@@ -27,14 +27,17 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Death Zone"))
-        {
+        if (other.gameObject.CompareTag("Death Zone")) {
             Application.LoadLevel("GameOver");
         }
     }
 
     void UpdateSpeedText() 
     {
-        speedText.text = "Speed: " + rb.velocity.ToString();
+        float mag = 0.0f;
+        if (rb.velocity.magnitude > 0.1f) {
+            mag = rb.velocity.magnitude;
+        }
+        speedText.text = "Speed: " + mag.ToString();
     }
 }
