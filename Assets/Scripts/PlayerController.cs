@@ -6,11 +6,15 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody rb;
     public float speed;
     public Text speedText;
+    private int score;
+    public Text scoreText;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         UpdateSpeedText();
+        score = 0;
+        UpdateScoreText();
     }
 
     void FixedUpdate()
@@ -32,6 +36,14 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.CompareTag("Cow")) {
+            UpdateScore();
+            UpdateScoreText();
+        }
+    }
+
     void UpdateSpeedText() 
     {
         float mag = 0.0f;
@@ -39,5 +51,15 @@ public class PlayerController : MonoBehaviour {
             mag = rb.velocity.magnitude;
         }
         speedText.text = "Speed: " + mag.ToString();
+    }
+
+    void UpdateScore()
+    {
+        score += (int)(rb.velocity.magnitude * 10);
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
     }
 }
