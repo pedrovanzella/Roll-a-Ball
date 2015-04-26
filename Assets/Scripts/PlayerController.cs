@@ -41,6 +41,14 @@ public class PlayerController : MonoBehaviour {
         if (collision.collider.gameObject.CompareTag("Cow")) {
             UpdateScore();
             UpdateScoreText();
+            collision.collider.gameObject.GetComponent<ParticleSystem>().Play();
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.gameObject.CompareTag("Cow")) {
+            collision.collider.gameObject.GetComponent<ParticleSystem>().Stop();
         }
     }
 
