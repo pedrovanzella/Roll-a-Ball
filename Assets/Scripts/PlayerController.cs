@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
     private Rigidbody rb;
     public float speed;
+    public Text speedText;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        UpdateSpeedText();
     }
 
     void FixedUpdate()
@@ -18,6 +21,8 @@ public class PlayerController : MonoBehaviour {
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.AddForce(movement * speed);
+
+        UpdateSpeedText();
     }
 
     void OnTriggerEnter(Collider other)
@@ -26,5 +31,10 @@ public class PlayerController : MonoBehaviour {
         {
             Application.LoadLevel("GameOver");
         }
+    }
+
+    void UpdateSpeedText() 
+    {
+        speedText.text = "Speed: " + rb.velocity.ToString();
     }
 }
